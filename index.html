@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>M4 Travels Sri Lanka | Private Tours & Airport Transfers</title>
-  <meta name="description" content="Discover Sri Lanka with M4 Travels — professional private tours, airport transfers, and customized travel experiences across the island." />
-  <meta property="og:title" content="M4 Travels Sri Lanka" />
-  <meta property="og:description" content="Private tours & airport transfers with local expertise." />
+  <title>M4Travels Sri Lanka | Private Tours & Airport Transfers</title>
+  <meta name="description" content="Discover the beauty of Sri Lanka with M4Travels Sri Lanka — reliable airport transfers, private tours, and customized travel experiences across the island." />
+  <meta property="og:title" content="M4Travels Sri Lanka" />
+  <meta property="og:description" content="Airport transfers, private tours & customized travel with comfort, safety, and local expertise." />
   <meta property="og:type" content="website" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -19,7 +19,7 @@
   <nav id="navbar">
     <a href="#home" class="logo">
       <span class="logo-m4">M4</span><span class="logo-travels">Travels</span>
-      <span class="logo-sl">Sri Lanka</span>
+      <span class="logo-sl"> Sri Lanka</span>
     </a>
     <button class="nav-toggle" id="navToggle" aria-label="Menu">
       <span></span><span></span><span></span>
@@ -28,6 +28,7 @@
       <li><a href="#home">Home</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="#services">Services</a></li>
+      <li><a href="#why-us">Why Us</a></li>
       <li><a href="#gallery">Gallery</a></li>
       <li><a href="#pricing">Pricing</a></li>
       <li><a href="#reviews">Reviews</a></li>
@@ -39,9 +40,8 @@
   <section id="home" class="hero">
     <div class="hero-overlay"></div>
     <div class="hero-content">
-      <p class="hero-pre">Welcome to</p>
-      <h1 class="hero-title">M4 Travels<br/><em>Sri Lanka</em></h1>
-      <p class="hero-sub" id="heroSubtitle"></p>
+      <h1 class="hero-title">Welcome to <em>M4Travels Sri Lanka</em></h1>
+      <div class="hero-sub" id="heroSubtitle"></div>
       <div class="hero-badges" id="heroBadges"></div>
       <a href="#contact" class="btn btn-primary" id="heroCta"></a>
     </div>
@@ -60,16 +60,18 @@
         </div>
         <div class="about-text">
           <p class="section-label">About Us</p>
-          <h2>Your Trusted Guide<br/><em>Across Sri Lanka</em></h2>
-          <p>M4 Travels Sri Lanka is a private tour and transportation service dedicated to providing high-quality travel experiences for visitors to Sri Lanka.</p>
-          <p>With local knowledge and professional service, we help tourists discover the most beautiful destinations in the country — from golden beaches and ancient temples to misty mountains and wildlife parks.</p>
-          <p>Airport pickup available from <strong>Bandaranaike International Airport</strong>. Island-wide travel covered.</p>
-          <div class="about-features">
-            <div class="feature"><span>🤝</span> Friendly & professional service</div>
-            <div class="feature"><span>🚗</span> Safe & comfortable transport</div>
-            <div class="feature"><span>📅</span> Flexible tour planning</div>
-            <div class="feature"><span>💰</span> Affordable packages</div>
-          </div>
+          <h2>About <em>M4Travels Sri Lanka</em></h2>
+          <p>M4Travels Sri Lanka is a private tour and transportation service dedicated to providing high-quality travel experiences for visitors to Sri Lanka.</p>
+          <p>With local knowledge and professional service, we help tourists discover the most beautiful destinations in the country including beaches, cultural heritage sites, wildlife parks, and scenic hill country.</p>
+          <p>Our goal is to make every traveler feel comfortable, safe, and welcomed while exploring Sri Lanka.</p>
+          <p><strong>We focus on:</strong></p>
+          <ul class="about-focus-list">
+            <li>Friendly and professional service</li>
+            <li>Safe and comfortable transportation</li>
+            <li>Flexible tour planning</li>
+            <li>Affordable tour packages</li>
+          </ul>
+          <p>Airport pickup available from <strong>Bandaranaike International Airport</strong>. With M4Travels Sri Lanka, your trip becomes a memorable experience.</p>
         </div>
       </div>
     </div>
@@ -84,6 +86,16 @@
     </div>
   </section>
 
+  <!-- WHY CHOOSE US -->
+  <section id="why-us" class="section why-us">
+    <div class="container">
+      <p class="section-label center">Why Tourists Choose Us</p>
+      <h2 class="center">Your Safety, Comfort &amp; <em>Satisfaction</em></h2>
+      <div class="highlights-grid" id="whyUsGrid"></div>
+      <p class="why-us-priority">Your safety, comfort, and satisfaction are our top priorities.</p>
+    </div>
+  </section>
+
   <!-- DESTINATIONS STRIP -->
   <section class="destinations">
     <div class="dest-track" id="destTrack"></div>
@@ -92,8 +104,9 @@
   <!-- GALLERY -->
   <section id="gallery" class="section gallery">
     <div class="container">
-      <p class="section-label center">Sri Lanka Through Our Eyes</p>
+      <p class="section-label center">Real Experiences</p>
       <h2 class="center">Photo <em>Gallery</em></h2>
+      <p class="gallery-intro">Photos of our vehicle, tourists traveling, Sri Lanka attractions — beaches, mountains, wildlife, and airport pickup. Photos build trust for tourists.</p>
       <div class="gallery-grid" id="galleryGrid"></div>
     </div>
   </section>
@@ -101,10 +114,10 @@
   <!-- PRICING -->
   <section id="pricing" class="section pricing">
     <div class="container">
-      <p class="section-label center">Simple & Fair</p>
-      <h2 class="center" id="pricingHeadline"></h2>
+      <p class="section-label center">Pricing</p>
+      <h2 class="center" id="pricingHeadline">Pricing</h2>
       <p class="pricing-intro" id="pricingIntro"></p>
-      <div class="pricing-grid" id="pricingGrid"></div>
+      <ul class="pricing-includes" id="pricingIncludes"></ul>
       <p class="pricing-note" id="pricingNote"></p>
       <p class="pricing-cta" id="pricingCta"></p>
     </div>
@@ -113,7 +126,7 @@
   <!-- REVIEWS -->
   <section id="reviews" class="section reviews">
     <div class="container">
-      <p class="section-label center">Traveller Stories</p>
+      <p class="section-label center">Google Reviews</p>
       <h2 class="center">What Our Guests <em>Say</em></h2>
       <div class="reviews-grid" id="reviewsGrid"></div>
     </div>
@@ -124,9 +137,10 @@
     <div class="container">
       <div class="contact-grid">
         <div class="contact-info">
-          <p class="section-label">Get in Touch</p>
+          <p class="section-label">Book Now</p>
           <h2>Start Your Sri Lanka<br/><em>Adventure Today</em></h2>
-          <p>Book your airport transfer or private tour. We'll reply within an hour on WhatsApp.</p>
+          <p>Book your airport transfer or private tour with M4Travels Sri Lanka.</p>
+          <p class="contact-wa-cta" id="contactWaCta"></p>
           <div class="contact-items">
             <a id="whatsappLink" href="#" class="contact-item whatsapp-item" target="_blank" rel="noopener">
               <span class="ci-icon">💬</span>
@@ -153,11 +167,12 @@
           <div class="social-links" id="socialLinks"></div>
         </div>
         <div class="contact-form-wrap">
-          <h3>Send a Booking Request</h3>
+          <h3>Book Your Tour Now</h3>
+          <p class="form-intro">Booking Form</p>
           <form id="bookingForm" class="booking-form">
             <div class="form-row">
               <div class="form-group">
-                <label>Your Name</label>
+                <label>Name</label>
                 <input type="text" name="name" placeholder="e.g. John Smith" required />
               </div>
               <div class="form-group">
@@ -171,27 +186,16 @@
                 <input type="date" name="date" required />
               </div>
               <div class="form-group">
-                <label>Number of Travellers</label>
+                <label>Number of Travelers</label>
                 <input type="number" name="travelers" min="1" max="20" placeholder="e.g. 2" required />
               </div>
             </div>
             <div class="form-group">
-              <label>Service Required</label>
-              <select name="service" required>
-                <option value="">Select a service...</option>
-                <option>Airport Transfer</option>
-                <option>Private Day Tour</option>
-                <option>Multi-Day Tour</option>
-                <option>Wedding / Special Event</option>
-                <option>Other</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label>Tour Plan / Message</label>
-              <textarea name="message" rows="4" placeholder="Tell us about your plans, preferred destinations, or any questions..."></textarea>
+              <label>Tour Plan</label>
+              <textarea name="message" rows="4" placeholder="Tell us about your travel plans, preferred destinations, or any questions..."></textarea>
             </div>
             <button type="submit" class="btn btn-primary btn-full">Send via WhatsApp 💬</button>
-            <p class="form-note">Clicking "Send" will open WhatsApp with your details pre-filled.</p>
+            <p class="form-note">Chat with us on WhatsApp to plan your tour. Clicking "Send" will open WhatsApp with your details pre-filled.</p>
           </form>
         </div>
       </div>
@@ -205,7 +209,7 @@
         <span class="logo-m4">M4</span><span class="logo-travels">Travels</span>
         <span class="logo-sl">Sri Lanka</span>
       </div>
-      <p>Your trusted travel partner across the Pearl of the Indian Ocean.</p>
+      <p>Discover the beauty of Sri Lanka with comfort, safety, and local expertise.</p>
       <p class="footer-copy">© <span id="footerYear"></span> M4 Travels Sri Lanka. All rights reserved.</p>
     </div>
   </footer>

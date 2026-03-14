@@ -16,10 +16,11 @@ const SITE_CONTENT = {
 
   // ── CONTACT DETAILS ──────────────────────────────────────
   contact: {
-    whatsapp_number: "+94777510000",          // Used for WhatsApp button (no spaces/dashes)
-    whatsapp_display: "+94 77 751 0000",      // Displayed on site
+    whatsapp_number: "+94777510000",          // Replace with your number (no spaces/dashes)
+    whatsapp_display: "+94 77 751 XXXX",      // Displayed on site (replace XXXX with your digits)
     email: "info@m4travels.lk",               // Your email address
-    location: "Colombo, Sri Lanka",
+    location: "Based in Sri Lanka – Islandwide Travel",
+    whatsapp_cta: "Chat with us on WhatsApp to plan your tour",
     facebook_url: "https://facebook.com/m4travelssrilanka",   // Your Facebook page URL
     instagram_url: "https://instagram.com/m4travelssrilanka", // Your Instagram URL
     tripadvisor_url: "",                      // Leave empty if not on TripAdvisor
@@ -27,9 +28,12 @@ const SITE_CONTENT = {
 
   // ── HERO SECTION (Top of homepage) ───────────────────────
   hero: {
-    tagline: "Discover Sri Lanka",
-    subtitle: "Private tours & airport transfers with local expertise",
-    cta_button: "Book Your Tour",
+    paragraphs: [
+      "Discover the beauty of Sri Lanka with comfort, safety, and local expertise. At M4Travels Sri Lanka, we provide reliable airport transfers, private tours, and customized travel experiences across the island.",
+      "From golden beaches to misty mountains, ancient cities to wildlife safaris – we help you explore Sri Lanka in the most convenient and memorable way.",
+      "Whether you are visiting for a short holiday or a long adventure, we ensure a smooth and enjoyable journey from the moment you arrive.",
+    ],
+    cta_button: "Start your Sri Lanka journey with us today.",
   },
 
   // ── WHY CHOOSE US (Badges on homepage) ───────────────────
@@ -40,54 +44,49 @@ const SITE_CONTENT = {
     "Affordable Prices",
   ],
 
+  // ── WHY TOURISTS CHOOSE US (Section 4) ───────────────────
+  why_us: [
+    "Friendly and professional driver",
+    "Clean and comfortable vehicle",
+    "Flexible travel plans",
+    "Affordable daily rates",
+    "Local knowledge of Sri Lanka",
+  ],
+
   // ── SERVICES ─────────────────────────────────────────────
   services: [
     {
       icon: "✈️",
       title: "Airport Transfers",
-      description: "Safe and comfortable airport pickup and drop-off anywhere in Sri Lanka. Available from Bandaranaike International Airport 24/7.",
+      description: "Safe and comfortable airport pickup and drop-off anywhere in Sri Lanka.",
     },
     {
       icon: "🌴",
       title: "Private Day Tours",
-      description: "Customized day trips to top attractions across the island. Tailored to your interests and pace.",
+      description: "Customized day trips to top attractions across the island.",
     },
     {
       icon: "🗺️",
       title: "Multi-Day Tours",
-      description: "Complete Sri Lanka travel packages with professional driver and vehicle. We handle the journey, you enjoy the destination.",
+      description: "Complete Sri Lanka travel packages with driver and vehicle.",
     },
     {
       icon: "💍",
-      title: "Wedding & Special Events",
-      description: "Luxury transport for weddings, honeymoons, and special occasions. Memorable arrivals for your most important days.",
+      title: "Wedding & Special Event Transport",
+      description: "Luxury transport for weddings and special occasions.",
     },
   ],
 
   // ── PRICING SECTION ───────────────────────────────────────
   pricing: {
-    headline: "Transparent & Affordable Pricing",
-    intro: "Prices are tailored to your travel itinerary. All packages include a private vehicle and professional driver with flexible scheduling.",
-    note: "Fuel, highway tolls, and hotel accommodation are not included in tour prices.",
-    cta: "Contact us on WhatsApp for a custom quote — we'll reply within an hour!",
-    packages: [
-      {
-        name: "Airport Transfer",
-        price: "From $25",
-        features: ["Colombo area pickup/drop", "Meet & greet service", "Flight tracking", "Air-conditioned vehicle"],
-      },
-      {
-        name: "Day Tour",
-        price: "From $60",
-        features: ["Up to 10 hours", "Professional driver-guide", "Flexible itinerary", "Private vehicle"],
-      },
-      {
-        name: "Multi-Day Tour",
-        price: "Contact for quote",
-        features: ["Custom itinerary", "All destinations covered", "Professional driver", "Comfortable travel"],
-        highlight: true,
-      },
+    intro: "Prices can be discussed accordingly depending on the travel itinerary.",
+    includes: [
+      "Private vehicle",
+      "Professional driver",
+      "Flexible travel schedule",
     ],
+    note: "Fuel, highway tickets, and hotel are not included.",
+    cta: "Contact us on WhatsApp for a custom quote.",
   },
 
   // ── REVIEWS ───────────────────────────────────────────────

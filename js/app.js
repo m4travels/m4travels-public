@@ -30,8 +30,13 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ── HERO ────────────────────────────────────────────────
-  document.getElementById('heroSubtitle').textContent = C.hero.subtitle;
-  document.getElementById('heroCta').textContent = C.hero.cta_button;
+  const heroSubEl = document.getElementById('heroSubtitle');
+  C.hero.paragraphs.forEach(para => {
+    const p = document.createElement('p');
+    p.className = 'hero-para';
+    p.textContent = para;
+    heroSubEl.appendChild(p);
+  });
 
   const badgesEl = document.getElementById('heroBadges');
   C.highlights.forEach(text => {
@@ -40,10 +45,23 @@ document.addEventListener('DOMContentLoaded', () => {
     b.innerHTML = `✅ ${text}`;
     badgesEl.appendChild(b);
   });
-  // Move the CTA button into hero-badges area (after badges)
+
   const heroCta = document.getElementById('heroCta');
   heroCta.href = '#contact';
   heroCta.className = 'btn btn-primary';
+  heroCta.textContent = C.hero.cta_button;
+
+  // ── WHY US ──────────────────────────────────────────────
+  const whyUsGrid = document.getElementById('whyUsGrid');
+  if (whyUsGrid && C.why_us) {
+    C.why_us.forEach((text, i) => {
+      const div = document.createElement('div');
+      div.className = 'why-us-item reveal';
+      div.style.transitionDelay = `${i * 0.06}s`;
+      div.innerHTML = `<span class="why-us-star">⭐</span><span>${text}</span>`;
+      whyUsGrid.appendChild(div);
+    });
+  }
 
   // ── DESTINATIONS STRIP ──────────────────────────────────
   const destinations = [
@@ -99,30 +117,17 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ── PRICING ─────────────────────────────────────────────
-  document.getElementById('pricingHeadline').innerHTML = C.pricing.headline.replace(' & ', ' &amp; ').replace('&', '& <em>') + '</em>';
-  document.getElementById('pricingHeadline').innerHTML = `Transparent &amp; <em>Affordable Pricing</em>`;
   document.getElementById('pricingIntro').textContent = C.pricing.intro;
-  document.getElementById('pricingNote').textContent = '⚠ ' + C.pricing.note;
-  document.getElementById('pricingCta').textContent = '💬 ' + C.pricing.cta;
-
-  const pGrid = document.getElementById('pricingGrid');
-  C.pricing.packages.forEach((pkg, i) => {
-    const card = document.createElement('div');
-    card.className = `pricing-card reveal${pkg.highlight ? ' highlight' : ''}`;
-    card.style.transitionDelay = `${i * 0.1}s`;
-
-    const featuresHtml = pkg.features.map(f => `<li>${f}</li>`).join('');
-    const ctaClass = pkg.highlight ? 'btn-outline' : 'btn-primary';
-    const ctaStyle = pkg.highlight ? 'style="border-color:var(--gold-light);color:var(--gold-light);"' : '';
-
-    card.innerHTML = `
-      <div class="pc-name">${pkg.name}</div>
-      <div class="pc-price">${pkg.price}</div>
-      <ul>${featuresHtml}</ul>
-      <a href="#contact" class="btn ${ctaClass}" ${ctaStyle}>Get a Quote</a>
-    `;
-    pGrid.appendChild(card);
-  });
+  const pricingIncludes = document.getElementById('pricingIncludes');
+  if (pricingIncludes && C.pricing.includes) {
+    C.pricing.includes.forEach(item => {
+      const li = document.createElement('li');
+      li.textContent = item;
+      pricingIncludes.appendChild(li);
+    });
+  }
+  document.getElementById('pricingNote').textContent = 'Not included: ' + C.pricing.note;
+  document.getElementById('pricingCta').innerHTML = '💬 ' + C.pricing.cta;
 
   // ── REVIEWS ─────────────────────────────────────────────
   const rGrid = document.getElementById('reviewsGrid');
@@ -146,6 +151,10 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('contactWhatsapp').textContent = C.contact.whatsapp_display;
   document.getElementById('contactEmail').textContent = C.contact.email;
   document.getElementById('contactLocation').textContent = C.contact.location;
+  const contactWaCta = document.getElementById('contactWaCta');
+  if (contactWaCta && C.contact.whatsapp_cta) {
+    contactWaCta.textContent = C.contact.whatsapp_cta;
+  }
 
   const waLink1 = waLink('Hello M4 Travels! I would like to enquire about a tour.');
   document.getElementById('whatsappLink').href = waLink1;
@@ -181,19 +190,17 @@ document.addEventListener('DOMContentLoaded', () => {
       country:   f.country.value,
       date:      f.date.value,
       travelers: f.travelers.value,
-      service:   f.service.value,
       message:   f.message.value,
     };
 
     const msg =
-`Hello M4 Travels! I'd like to book a tour.
+`Hello M4Travels Sri Lanka! I'd like to book a tour.
 
 👤 Name: ${data.name}
 🌍 Country: ${data.country}
 📅 Arrival Date: ${data.date}
-👥 Travellers: ${data.travelers}
-🚗 Service: ${data.service}
-💬 Message: ${data.message || 'N/A'}`;
+👥 Number of Travelers: ${data.travelers}
+📋 Tour Plan: ${data.message || 'N/A'}`;
 
     window.open(waLink(msg), '_blank');
   });
