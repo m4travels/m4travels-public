@@ -30,19 +30,14 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ── HERO ────────────────────────────────────────────────
-  const heroSubEl = document.getElementById('heroSubtitle');
-  C.hero.paragraphs.forEach(para => {
-    const p = document.createElement('p');
-    p.className = 'hero-para';
-    p.textContent = para;
-    heroSubEl.appendChild(p);
-  });
-
   const badgesEl = document.getElementById('heroBadges');
-  C.highlights.forEach(text => {
-    const b = document.createElement('span');
+  const checkIcon =
+    '<span class="badge-check" aria-hidden="true"><svg viewBox="0 0 20 20" width="14" height="14" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="8.25" stroke="currentColor" stroke-width="1.5"/><path d="M6.25 10.1 8.6 12.45 13.75 7.3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>';
+  C.highlights.forEach((text, i) => {
+    const b = document.createElement('li');
     b.className = 'hero-badge';
-    b.innerHTML = `✅ ${text}`;
+    b.style.animationDelay = `${0.72 + i * 0.12}s`;
+    b.innerHTML = `${checkIcon}<span class="badge-label">${text}</span>`;
     badgesEl.appendChild(b);
   });
 
@@ -93,6 +88,31 @@ document.addEventListener('DOMContentLoaded', () => {
     sGrid.appendChild(card);
   });
 
+  // ── PACKAGES ────────────────────────────────────────────
+  const pkgIntro = document.getElementById('packagesIntro');
+  const pkgFoot = document.getElementById('packagesFootnote');
+  const pkgGrid = document.getElementById('packagesGrid');
+  if (C.packages && pkgIntro && pkgFoot && pkgGrid) {
+    pkgIntro.textContent = C.packages.intro;
+    pkgFoot.textContent = C.packages.footnote;
+    C.packages.items.forEach((p, i) => {
+      const card = document.createElement('article');
+      const isCustom = p.label === 'Custom';
+      card.className = `package-card reveal${isCustom ? ' package-card--custom' : ''}`;
+      card.style.transitionDelay = `${i * 0.07}s`;
+      const list = p.highlights.map(h => `<li>${h}</li>`).join('');
+      card.innerHTML = `
+        <p class="package-label">${p.label}</p>
+        <h3>${p.title}</h3>
+        <p class="package-subtitle">${p.subtitle}</p>
+        <ul class="package-list">${list}</ul>
+        <p class="package-ideal">${p.ideal}</p>
+        <a href="#contact" class="btn ${isCustom ? 'btn-primary' : 'btn-outline'} package-cta">Enquire about this package</a>
+      `;
+      pkgGrid.appendChild(card);
+    });
+  }
+
   // ── GALLERY ─────────────────────────────────────────────
   const gGrid = document.getElementById('galleryGrid');
   C.gallery.forEach((item, i) => {
@@ -100,14 +120,15 @@ document.addEventListener('DOMContentLoaded', () => {
     div.className = 'gallery-item reveal';
     div.style.transitionDelay = `${i * 0.07}s`;
 
-    // Check if it's a placeholder path or real image
-    const isPlaceholder = item.src.startsWith('images/');
-    const imgContent = isPlaceholder
+    const usePlaceholder = item.placeholder === true || !item.src;
+    const dims =
+      item.width && item.height ? ` width="${item.width}" height="${item.height}"` : '';
+    const imgContent = usePlaceholder
       ? `<div class="gallery-placeholder gallery-img">
            <span>📸</span>
-           <p style="font-size:0.7rem;padding:0 20px;text-align:center;">Upload: ${item.src}</p>
+           <p style="font-size:0.7rem;padding:0 20px;text-align:center;">Add a photo path in content.js</p>
          </div>`
-      : `<img class="gallery-img" src="${item.src}" alt="${item.alt}" loading="lazy" />`;
+      : `<img class="gallery-img" src="${item.src}" alt="${item.alt}" loading="lazy" decoding="async"${dims} />`;
 
     div.innerHTML = `
       ${imgContent}
@@ -116,38 +137,16 @@ document.addEventListener('DOMContentLoaded', () => {
     gGrid.appendChild(div);
   });
 
-  // ── PRICING ─────────────────────────────────────────────
-  document.getElementById('pricingIntro').textContent = C.pricing.intro;
-  const pricingIncludes = document.getElementById('pricingIncludes');
-  if (pricingIncludes && C.pricing.includes) {
-    C.pricing.includes.forEach(item => {
-      const li = document.createElement('li');
-      li.textContent = item;
-      pricingIncludes.appendChild(li);
-    });
-  }
-  document.getElementById('pricingNote').textContent = 'Not included: ' + C.pricing.note;
-  document.getElementById('pricingCta').innerHTML = '💬 ' + C.pricing.cta;
-
-  // ── REVIEWS ─────────────────────────────────────────────
-  const rGrid = document.getElementById('reviewsGrid');
-  C.reviews.forEach((r, i) => {
-    const card = document.createElement('div');
-    card.className = 'review-card reveal';
-    card.style.transitionDelay = `${i * 0.1}s`;
-    const stars = '⭐'.repeat(r.stars);
-    card.innerHTML = `
-      <div class="review-stars">${stars}</div>
-      <p class="review-text">"${r.text}"</p>
-      <div class="review-author">
-        <strong>${r.name}</strong>
-        <span>📍 ${r.country}</span>
-      </div>
-    `;
-    rGrid.appendChild(card);
-  });
-
   // ── CONTACT DETAILS ─────────────────────────────────────
+  const phoneDigits = C.contact.whatsapp_number.replace(/\D/g, '');
+  const phoneLink = document.getElementById('phoneLink');
+  if (phoneLink && phoneDigits) {
+    phoneLink.href = `tel:+${phoneDigits}`;
+  }
+  const phoneDisplay = C.contact.phone_display || C.contact.whatsapp_display;
+  const contactPhoneEl = document.getElementById('contactPhone');
+  if (contactPhoneEl) contactPhoneEl.textContent = phoneDisplay;
+
   document.getElementById('contactWhatsapp').textContent = C.contact.whatsapp_display;
   document.getElementById('contactEmail').textContent = C.contact.email;
   document.getElementById('contactLocation').textContent = C.contact.location;
@@ -181,28 +180,48 @@ document.addEventListener('DOMContentLoaded', () => {
     socials.appendChild(a);
   }
 
-  // ── BOOKING FORM → WHATSAPP ─────────────────────────────
-  document.getElementById('bookingForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const f = this;
+  // ── BOOKING FORM → EMAIL OR WHATSAPP ────────────────────
+  const bookingForm = document.getElementById('bookingForm');
+  function bookingMessageFromForm(form) {
     const data = {
-      name:      f.name.value,
-      country:   f.country.value,
-      date:      f.date.value,
-      travelers: f.travelers.value,
-      message:   f.message.value,
+      name: form.name.value.trim(),
+      country: form.country.value.trim(),
+      date: form.date.value,
+      travelers: form.travelers.value,
+      message: form.message.value.trim(),
     };
+    return (
+      `Hello M4Travels Sri Lanka! I'd like to book a tour.\n\n` +
+      `Name: ${data.name}\n` +
+      `Country: ${data.country}\n` +
+      `Arrival date: ${data.date}\n` +
+      `Number of travelers: ${data.travelers}\n` +
+      `Tour plan / questions:\n${data.message || 'N/A'}`
+    );
+  }
 
-    const msg =
-`Hello M4Travels Sri Lanka! I'd like to book a tour.
+  bookingForm.addEventListener('submit', e => e.preventDefault());
 
-👤 Name: ${data.name}
-🌍 Country: ${data.country}
-📅 Arrival Date: ${data.date}
-👥 Number of Travelers: ${data.travelers}
-📋 Tour Plan: ${data.message || 'N/A'}`;
-
+  document.getElementById('bookingWhatsappBtn').addEventListener('click', () => {
+    if (!bookingForm.checkValidity()) {
+      bookingForm.reportValidity();
+      return;
+    }
+    const msg = bookingMessageFromForm(bookingForm);
     window.open(waLink(msg), '_blank');
+  });
+
+  document.getElementById('bookingEmailBtn').addEventListener('click', () => {
+    if (!bookingForm.checkValidity()) {
+      bookingForm.reportValidity();
+      return;
+    }
+    const body = encodeURIComponent(bookingMessageFromForm(bookingForm));
+    const subject = encodeURIComponent(
+      `Tour booking — ${bookingForm.name.value.trim() || 'enquiry'}`
+    );
+    const to = encodeURIComponent(C.contact.email);
+    window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
   });
 
   // ── FOOTER YEAR ─────────────────────────────────────────

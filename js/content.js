@@ -16,23 +16,19 @@ const SITE_CONTENT = {
 
   // ── CONTACT DETAILS ──────────────────────────────────────
   contact: {
-    whatsapp_number: "+94777510000",          // Replace with your number (no spaces/dashes)
-    whatsapp_display: "+94 77 751 XXXX",      // Displayed on site (replace XXXX with your digits)
-    email: "info@m4travels.lk",               // Your email address
+    phone_display: "+94 77 751 3098",         // Shown for Phone & WhatsApp (same number)
+    whatsapp_number: "+94777513098",          // Digits only after +94 for wa.me links (no spaces)
+    whatsapp_display: "+94 77 751 3098",
+    email: "info@m4travels.com",
     location: "Based in Sri Lanka – Islandwide Travel",
     whatsapp_cta: "Chat with us on WhatsApp to plan your tour",
-    facebook_url: "https://facebook.com/m4travelssrilanka",   // Your Facebook page URL
-    instagram_url: "https://instagram.com/m4travelssrilanka", // Your Instagram URL
+    facebook_url: "https://www.facebook.com/M4TravelsSL/",
+    instagram_url: "https://www.instagram.com/m4travels_sl/",
     tripadvisor_url: "",                      // Leave empty if not on TripAdvisor
   },
 
   // ── HERO SECTION (Top of homepage) ───────────────────────
   hero: {
-    paragraphs: [
-      "Discover the beauty of Sri Lanka with comfort, safety, and local expertise. At M4Travels Sri Lanka, we provide reliable airport transfers, private tours, and customized travel experiences across the island.",
-      "From golden beaches to misty mountains, ancient cities to wildlife safaris – we help you explore Sri Lanka in the most convenient and memorable way.",
-      "Whether you are visiting for a short holiday or a long adventure, we ensure a smooth and enjoyable journey from the moment you arrive.",
-    ],
     cta_button: "Start your Sri Lanka journey with us today.",
   },
 
@@ -77,51 +73,82 @@ const SITE_CONTENT = {
     },
   ],
 
-  // ── PRICING SECTION ───────────────────────────────────────
-  pricing: {
-    intro: "Prices can be discussed accordingly depending on the travel itinerary.",
-    includes: [
-      "Private vehicle",
-      "Professional driver",
-      "Flexible travel schedule",
+  // ── TOUR PACKAGES (multi-day ideas — routes adjusted to your dates & pace) ──
+  packages: {
+    intro:
+      "Sample private-tour frameworks based on popular Sri Lanka circuits (Cultural Triangle UNESCO sites, hill country trains, south coast, and wildlife). Hotels, entrance tickets, and meals are arranged by you or we can advise — transport and guiding by your M4Travels driver.",
+    footnote:
+      "All packages are private vehicle + driver; final itinerary and quote depend on pickup point, season, and your interests. Contact us on WhatsApp or the form below.",
+    items: [
+      {
+        label: "3 Days",
+        title: "Cultural Triangle snapshot",
+        subtitle: "Ancient cities & rock fortress",
+        highlights: [
+          "Dambulla Cave Temple — cave shrines and Buddha statues (UNESCO)",
+          "Sigiriya Lion Rock — climb the fortress and see frescoes (UNESCO)",
+          "Polonnaruwa or Anuradhapura — ruined capitals and stupas",
+          "Optional: Minneriya or Kaudulla for elephant gatherings (seasonal)",
+          "Can start/end Colombo or Kandy depending on your flights",
+        ],
+        ideal: "Best for: short stays, history lovers, first-time visitors.",
+      },
+      {
+        label: "5 Days",
+        title: "Culture, hills & tea country",
+        subtitle: "Kandy, Nuwara Eliya, scenic route",
+        highlights: [
+          "Kandy — Temple of the Sacred Tooth, lake walk, cultural show option",
+          "Peradeniya Royal Botanical Gardens or Pinnawala (route-dependent)",
+          "Tea country — factory visit, viewpoints, cool climate in Nuwara Eliya",
+          "Scenic drive toward Ella or train segment (subject to seat availability)",
+          "Flexible mix of one wildlife or extra heritage stop if time allows",
+        ],
+        ideal: "Best for: couples and families who want culture plus cool hill scenery.",
+      },
+      {
+        label: "10 Days",
+        title: "Island highlights tour",
+        subtitle: "Triangle → hills → safari → south coast",
+        highlights: [
+          "Cultural Triangle — Sigiriya, Dambulla, Polonnaruwa/Anuradhapura",
+          "Kandy and tea hills — Nuwara Eliya, Ella area viewpoints",
+          "Yala or Udawalawe — jeep safari for elephants, leopard chance (Yala)",
+          "South coast — Galle Fort (UNESCO), Mirissa/Matara beaches, stilt fishermen",
+          "Coastal drive to Colombo or airport; pacing adjusted so you are not rushed",
+        ],
+        ideal: "Best for: round-trip Sri Lanka without skipping icons or beach time.",
+      },
+      {
+        label: "Custom",
+        title: "Your dates, your route",
+        subtitle: "Fully tailored private tour",
+        highlights: [
+          "Any duration — from long weekends to three weeks",
+          "East coast (Trincomalee, Arugam Bay) or north — season-dependent",
+          "Slow travel, photography, honeymoon, or multi-generational family pace",
+          "Airport meet anywhere (Colombo, Mattala, etc.) and island-wide drops",
+          "We plan driving order, daily distances, and realistic sightseeing times",
+        ],
+        ideal: "Best for: travellers who already know what they want — or want us to design it.",
+      },
     ],
-    note: "Fuel, highway tickets, and hotel are not included.",
-    cta: "Contact us on WhatsApp for a custom quote.",
   },
 
-  // ── REVIEWS ───────────────────────────────────────────────
-  // Add or remove review blocks as needed. Keep at least 2.
-  reviews: [
-    {
-      name: "Sarah M.",
-      country: "United Kingdom",
-      stars: 5,
-      text: "Absolutely fantastic service! Our driver was punctual, friendly, and knew all the best spots. Made our Sri Lanka trip truly unforgettable.",
-    },
-    {
-      name: "Thomas R.",
-      country: "Germany",
-      stars: 5,
-      text: "Very professional and reliable. The vehicle was clean and comfortable. We felt safe throughout the entire trip. Highly recommend!",
-    },
-    {
-      name: "Priya K.",
-      country: "Australia",
-      stars: 5,
-      text: "Booked airport transfer and a 3-day tour. Everything was perfectly arranged. Great value for money and wonderful local knowledge.",
-    },
-  ],
-
   // ── GALLERY ───────────────────────────────────────────────
-  // Replace image URLs with your own photos uploaded to the /images folder.
-  // Format: { src: "images/your-photo.jpg", alt: "Description", caption: "Location Name" }
+  // Photos live in images/gallery/. Optional: width & height (intrinsic pixels) reduce layout shift.
+  // Set placeholder: true to show the upload prompt instead of an image.
   gallery: [
-    { src: "images/gallery/sigiriya.jpg",    alt: "Sigiriya Rock Fortress", caption: "Sigiriya" },
-    { src: "images/gallery/nine-arch.jpg",   alt: "Nine Arch Bridge Ella",  caption: "Nine Arch Bridge" },
-    { src: "images/gallery/galle.jpg",       alt: "Galle Fort",             caption: "Galle Fort" },
-    { src: "images/gallery/tooth-relic.jpg", alt: "Temple of Tooth Relic",  caption: "Kandy" },
-    { src: "images/gallery/beach.jpg",       alt: "Sri Lanka Beach",        caption: "Southern Coast" },
-    { src: "images/gallery/wildlife.jpg",    alt: "Wildlife Safari",        caption: "Yala Safari" },
+    { src: "images/gallery/sigiriya.jpg",     alt: "Sigiriya Lion Rock fortress", caption: "Sigiriya", width: 640, height: 427 },
+    { src: "images/gallery/beach.jpg",        alt: "Tropical beach in Sri Lanka", caption: "Southern coast", width: 640, height: 426 },
+    { src: "images/gallery/galle.jpg",        alt: "Galle coast and fort area", caption: "Galle", width: 640, height: 399 },
+    { src: "images/gallery/tea.jpg",          alt: "Tea plantations in the hills", caption: "Tea country", width: 640, height: 426 },
+    { src: "images/gallery/elephant.jpg",     alt: "Elephants in Sri Lanka", caption: "Wildlife", width: 640, height: 427 },
+    { src: "images/gallery/pinnawala.jpg",    alt: "Pinnawala elephant scene", caption: "Pinnawala", width: 640, height: 360 },
+    { src: "images/gallery/elle.jpg",         alt: "Scenic hills near Ella", caption: "Ella", width: 640, height: 960 },
+    { src: "images/gallery/lotus-tower.jpg",  alt: "Colombo Lotus Tower skyline", caption: "Colombo", width: 640, height: 960 },
+    { src: "images/gallery/fishing.jpg",      alt: "Traditional stilt fishing", caption: "Coastal life", width: 640, height: 427 },
+    { src: "images/gallery/downshouth.jpg",   alt: "Southern Sri Lanka coastline", caption: "Down south", width: 640, height: 997 },
   ],
 
 };
