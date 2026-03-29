@@ -1,0 +1,17 @@
+{
+  "sigiriya": ["01.jpg", "02.jpg", "03.jpg"],
+  "galle-fort": ["01.jpg", "02.jpg", "03.jpg", "04.jpg", "05.jpg", "06.jpg"],
+  "elephant-gathering": ["01.jpg", "02.jpg", "03.jpg"],
+  "kandy": ["01.jpg", "02.jpg", "03.jpg", "04.jpg", "05.jpg", "06.jpg"],
+  "ella": ["01.jpg", "02.jpg", "03.jpg"],
+  "tea-country": ["01.jpg", "02.jpg", "03.jpg"],
+  "dambulla": ["01.jpg", "02.jpg", "03.jpg"],
+  "polonnaruwa": ["01.jpg", "02.jpg", "03.jpg"],
+  "yala": ["01.jpg", "02.jpg", "03.jpg", "04.jpg", "05.jpg", "06.jpg"],
+  "south-beaches": ["01.jpg", "02.jpg", "03.jpg", "04.jpg", "05.jpg"],
+  "anuradhapura": ["01.jpg", "02.jpg", "03.jpg", "04.jpg", "05.jpg"],
+  "adams-peak": ["01.jpg", "02.jpg"],
+  "horton-plains": ["01.jpg", "02.jpg", "03.jpg"],
+  "colombo": ["01.jpg", "02.jpg", "03.jpg", "04.jpg", "05.jpg", "06.jpg"],
+  "train-kandy-ella": ["01.jpg", "02.jpg", "03.jpg", "04.jpg"]
+}

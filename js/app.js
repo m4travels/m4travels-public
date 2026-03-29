@@ -41,10 +41,36 @@ document.addEventListener('DOMContentLoaded', () => {
     badgesEl.appendChild(b);
   });
 
-  const heroCta = document.getElementById('heroCta');
-  heroCta.href = '#contact';
-  heroCta.className = 'btn btn-primary';
-  heroCta.textContent = C.hero.cta_button;
+  const phoneDigits = C.contact.whatsapp_number.replace(/\D/g, '');
+  const phoneDisplay = C.contact.phone_display || C.contact.whatsapp_display;
+  const heroCallBtn = document.getElementById('heroCallBtn');
+  const heroCallNumber = document.getElementById('heroCallNumber');
+  if (heroCallBtn && phoneDigits) {
+    heroCallBtn.href = `tel:+${phoneDigits}`;
+    heroCallBtn.setAttribute('aria-label', `Call M4 Travels at ${phoneDisplay}`);
+  }
+  if (heroCallNumber) {
+    heroCallNumber.textContent = phoneDisplay;
+  }
+
+  const heroMessageBtn = document.getElementById('heroMessageBtn');
+  const bookingForm = document.getElementById('bookingForm');
+  if (heroMessageBtn && bookingForm) {
+    heroMessageBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      bookingForm.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+      const focusField = () => {
+        const first = bookingForm.querySelector('input[name="name"]');
+        if (first) first.focus({ preventScroll: true });
+      };
+      if (reduceMotion) {
+        focusField();
+      } else {
+        window.setTimeout(focusField, 450);
+      }
+    });
+  }
 
   // ── WHY US ──────────────────────────────────────────────
   const whyUsGrid = document.getElementById('whyUsGrid');
@@ -113,37 +139,198 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ── GALLERY ─────────────────────────────────────────────
-  const gGrid = document.getElementById('galleryGrid');
-  C.gallery.forEach((item, i) => {
-    const div = document.createElement('div');
-    div.className = 'gallery-item reveal';
-    div.style.transitionDelay = `${i * 0.07}s`;
+  // ── SRI LANKA HIGHLIGHTS (local folders + simple carousel) ─
+  const HIGHLIGHT_IMG_BASE = 'images/highlights/';
 
-    const usePlaceholder = item.placeholder === true || !item.src;
-    const dims =
-      item.width && item.height ? ` width="${item.width}" height="${item.height}"` : '';
-    const imgContent = usePlaceholder
-      ? `<div class="gallery-placeholder gallery-img">
-           <span>📸</span>
-           <p style="font-size:0.7rem;padding:0 20px;text-align:center;">Add a photo path in content.js</p>
-         </div>`
-      : `<img class="gallery-img" src="${item.src}" alt="${item.alt}" loading="lazy" decoding="async"${dims} />`;
+  function safeHighlightFolder(name) {
+    return typeof name === 'string' && /^[a-z0-9-]+$/i.test(name);
+  }
 
-    div.innerHTML = `
-      ${imgContent}
-      <div class="gallery-caption">${item.caption}</div>
-    `;
-    gGrid.appendChild(div);
-  });
+  /** Allow spaces, parentheses, etc. — only block path tricks. */
+  function safeHighlightFilename(name) {
+    if (typeof name !== 'string' || name.length === 0 || name.length > 240) return false;
+    if (/[\\/]|\.\./.test(name)) return false;
+    return true;
+  }
+
+  async function loadHighlightManifest() {
+    try {
+      const res = await fetch(`${HIGHLIGHT_IMG_BASE}manifest.json`, { cache: 'no-store' });
+      if (!res.ok) return {};
+      const data = await res.json();
+      return data && typeof data === 'object' && !Array.isArray(data) ? data : {};
+    } catch {
+      return {};
+    }
+  }
+
+  /** Non-empty `photos` in content.js wins; otherwise uses manifest.json for that folder key. */
+  function photosForHighlight(item, manifest) {
+    const fromJs = item.photos || [];
+    if (fromJs.length > 0) return fromJs;
+    const fromFile = manifest[item.folder];
+    return Array.isArray(fromFile) ? fromFile : [];
+  }
+
+  function highlightLocalUrls(item, manifest) {
+    if (!safeHighlightFolder(item.folder)) return [];
+    const base = `${HIGHLIGHT_IMG_BASE}${item.folder}/`;
+    const out = [];
+    for (const file of photosForHighlight(item, manifest)) {
+      if (safeHighlightFilename(file)) out.push(base + encodeURI(file));
+    }
+    return out;
+  }
+
+  function fillHighlightMedia(mediaEl, item, manifest) {
+    const local = highlightLocalUrls(item, manifest);
+    let urls = local.slice();
+    if (urls.length === 0 && item.fallbackSrc) urls = [item.fallbackSrc];
+    const altBase = item.alt || item.title || '';
+
+    if (urls.length === 0) {
+      const ph = document.createElement('div');
+      ph.className = 'highlight-placeholder';
+      ph.setAttribute('role', 'img');
+      ph.setAttribute('aria-label', altBase);
+      const icon = document.createElement('span');
+      icon.textContent = '📸';
+      const hint = document.createElement('span');
+      hint.className = 'highlight-ph-hint';
+      const folderLabel = safeHighlightFolder(item.folder) ? item.folder : '…';
+      hint.append('Add files to ');
+      const c1 = document.createElement('code');
+      c1.textContent = `images/highlights/${folderLabel}/`;
+      hint.appendChild(c1);
+      hint.append(' then list filenames in ');
+      const c2 = document.createElement('code');
+      c2.textContent = 'photos';
+      hint.appendChild(c2);
+      hint.append(' in content.js.');
+      ph.appendChild(icon);
+      ph.appendChild(hint);
+      mediaEl.appendChild(ph);
+      return;
+    }
+
+    if (urls.length === 1) {
+      const img = document.createElement('img');
+      img.className = 'highlight-img';
+      img.src = urls[0];
+      img.alt = altBase;
+      img.loading = 'lazy';
+      img.decoding = 'async';
+      if (item.width) img.width = item.width;
+      if (item.height) img.height = item.height;
+      mediaEl.appendChild(img);
+      return;
+    }
+
+    const carousel = document.createElement('div');
+    carousel.className = 'highlight-carousel';
+    const viewport = document.createElement('div');
+    viewport.className = 'highlight-carousel-viewport';
+    const track = document.createElement('div');
+    track.className = 'highlight-carousel-track';
+
+    const n = urls.length;
+    urls.forEach((src, idx) => {
+      const slide = document.createElement('div');
+      slide.className = 'highlight-carousel-slide';
+      slide.style.width = `${100 / n}%`;
+      const img = document.createElement('img');
+      img.src = src;
+      img.alt = urls.length > 1 ? `${altBase} — photo ${idx + 1}` : altBase;
+      img.loading = idx === 0 ? 'eager' : 'lazy';
+      img.decoding = 'async';
+      slide.appendChild(img);
+      track.appendChild(slide);
+    });
+    track.style.width = `${n * 100}%`;
+
+    viewport.appendChild(track);
+    carousel.appendChild(viewport);
+
+    const prev = document.createElement('button');
+    prev.type = 'button';
+    prev.className = 'highlight-carousel-btn highlight-carousel-btn--prev';
+    prev.setAttribute('aria-label', 'Previous photo');
+    prev.innerHTML = '‹';
+    const next = document.createElement('button');
+    next.type = 'button';
+    next.className = 'highlight-carousel-btn highlight-carousel-btn--next';
+    next.setAttribute('aria-label', 'Next photo');
+    next.innerHTML = '›';
+    carousel.appendChild(prev);
+    carousel.appendChild(next);
+
+    let index = 0;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduceMotion) track.classList.add('highlight-carousel-track--instant');
+
+    function applyTransform() {
+      const pct = (100 * index) / n;
+      track.style.transform = `translate3d(-${pct}%, 0, 0)`;
+    }
+
+    function go(delta) {
+      index = (index + delta + n) % n;
+      applyTransform();
+    }
+
+    prev.addEventListener('click', () => go(-1));
+    next.addEventListener('click', () => go(1));
+    applyTransform();
+
+    mediaEl.appendChild(carousel);
+  }
+
+  const highlightsGrid = document.getElementById('highlightsGrid');
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  if (highlightsGrid && C.sl_highlights) {
+    void (async () => {
+      const highlightManifest = await loadHighlightManifest();
+      C.sl_highlights.forEach((item, i) => {
+        const article = document.createElement('article');
+        article.className = 'highlight-card reveal';
+        article.style.transitionDelay = `${i * 0.05}s`;
+
+        const media = document.createElement('div');
+        media.className = 'highlight-media';
+        fillHighlightMedia(media, item, highlightManifest);
+
+        const body = document.createElement('div');
+        body.className = 'highlight-body';
+        const h3 = document.createElement('h3');
+        h3.className = 'highlight-title';
+        h3.textContent = item.title || '';
+        const p = document.createElement('p');
+        p.className = 'highlight-subtitle';
+        p.textContent = item.subtitle || '';
+        body.appendChild(h3);
+        body.appendChild(p);
+
+        article.appendChild(media);
+        article.appendChild(body);
+        highlightsGrid.appendChild(article);
+        revealObserver.observe(article);
+      });
+    })();
+  }
 
   // ── CONTACT DETAILS ─────────────────────────────────────
-  const phoneDigits = C.contact.whatsapp_number.replace(/\D/g, '');
   const phoneLink = document.getElementById('phoneLink');
   if (phoneLink && phoneDigits) {
     phoneLink.href = `tel:+${phoneDigits}`;
   }
-  const phoneDisplay = C.contact.phone_display || C.contact.whatsapp_display;
   const contactPhoneEl = document.getElementById('contactPhone');
   if (contactPhoneEl) contactPhoneEl.textContent = phoneDisplay;
 
@@ -181,12 +368,19 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ── BOOKING FORM → EMAIL OR WHATSAPP ────────────────────
-  const bookingForm = document.getElementById('bookingForm');
+  function formatTravelMonth(ym) {
+    if (!ym || !/^\d{4}-\d{2}$/.test(ym)) return ym || 'N/A';
+    const [y, m] = ym.split('-');
+    const d = new Date(parseInt(y, 10), parseInt(m, 10) - 1, 1);
+    return d.toLocaleDateString(undefined, { month: 'long', year: 'numeric' });
+  }
+
   function bookingMessageFromForm(form) {
+    const ym = form.travelMonth.value;
     const data = {
       name: form.name.value.trim(),
       country: form.country.value.trim(),
-      date: form.date.value,
+      travelMonth: formatTravelMonth(ym),
       travelers: form.travelers.value,
       message: form.message.value.trim(),
     };
@@ -194,7 +388,7 @@ document.addEventListener('DOMContentLoaded', () => {
       `Hello M4Travels Sri Lanka! I'd like to book a tour.\n\n` +
       `Name: ${data.name}\n` +
       `Country: ${data.country}\n` +
-      `Arrival date: ${data.date}\n` +
+      `Travelling month: ${data.travelMonth}\n` +
       `Number of travelers: ${data.travelers}\n` +
       `Tour plan / questions:\n${data.message || 'N/A'}`
     );
@@ -227,15 +421,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // ── FOOTER YEAR ─────────────────────────────────────────
   document.getElementById('footerYear').textContent = new Date().getFullYear();
 
-  // ── SCROLL REVEAL ───────────────────────────────────────
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.1 });
-
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  // ── SCROLL REVEAL (highlights register above when async manifest loads) ──
+  document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el));
 });

@@ -27,10 +27,7 @@ const SITE_CONTENT = {
     tripadvisor_url: "",                      // Leave empty if not on TripAdvisor
   },
 
-  // ── HERO SECTION (Top of homepage) ───────────────────────
-  hero: {
-    cta_button: "Start your Sri Lanka journey with us today.",
-  },
+  // ── HERO: “Call” + “Message us” are in index.html; phone number from contact below. ──
 
   // ── WHY CHOOSE US (Badges on homepage) ───────────────────
   highlights: [
@@ -76,7 +73,7 @@ const SITE_CONTENT = {
   // ── TOUR PACKAGES (multi-day ideas — routes adjusted to your dates & pace) ──
   packages: {
     intro:
-      "Sample private-tour frameworks based on popular Sri Lanka circuits (Cultural Triangle UNESCO sites, hill country trains, south coast, and wildlife). Hotels, entrance tickets, and meals are arranged by you or we can advise — transport and guiding by your M4Travels driver.",
+      "Below are example private-tour frameworks — Cultural Triangle, tea country, wildlife, and the south coast. Your hotels, tickets, and meals are yours to book (we’re happy to advise). Transport and day-to-day routing are with your M4Travels driver.",
     footnote:
       "All packages are private vehicle + driver; final itinerary and quote depend on pickup point, season, and your interests. Contact us on WhatsApp or the form below.",
     items: [
@@ -135,20 +132,132 @@ const SITE_CONTENT = {
     ],
   },
 
-  // ── GALLERY ───────────────────────────────────────────────
-  // Photos live in images/gallery/. Optional: width & height (intrinsic pixels) reduce layout shift.
-  // Set placeholder: true to show the upload prompt instead of an image.
-  gallery: [
-    { src: "images/gallery/sigiriya.jpg",     alt: "Sigiriya Lion Rock fortress", caption: "Sigiriya", width: 640, height: 427 },
-    { src: "images/gallery/beach.jpg",        alt: "Tropical beach in Sri Lanka", caption: "Southern coast", width: 640, height: 426 },
-    { src: "images/gallery/galle.jpg",        alt: "Galle coast and fort area", caption: "Galle", width: 640, height: 399 },
-    { src: "images/gallery/tea.jpg",          alt: "Tea plantations in the hills", caption: "Tea country", width: 640, height: 426 },
-    { src: "images/gallery/elephant.jpg",     alt: "Elephants in Sri Lanka", caption: "Wildlife", width: 640, height: 427 },
-    { src: "images/gallery/pinnawala.jpg",    alt: "Pinnawala elephant scene", caption: "Pinnawala", width: 640, height: 360 },
-    { src: "images/gallery/elle.jpg",         alt: "Scenic hills near Ella", caption: "Ella", width: 640, height: 960 },
-    { src: "images/gallery/lotus-tower.jpg",  alt: "Colombo Lotus Tower skyline", caption: "Colombo", width: 640, height: 960 },
-    { src: "images/gallery/fishing.jpg",      alt: "Traditional stilt fishing", caption: "Coastal life", width: 640, height: 427 },
-    { src: "images/gallery/downshouth.jpg",   alt: "Southern Sri Lanka coastline", caption: "Down south", width: 640, height: 997 },
+  // ── SRI LANKA HIGHLIGHTS (carousel) ───────────────────────
+  // Put files in images/highlights/<folder>/ then EITHER:
+  //   • list them in "photos" below, OR
+  //   • leave photos: [] and add the same folder name + filenames to images/highlights/manifest.json
+  // Filenames must match exactly (case-sensitive on the server). See images/highlights/README.txt
+  sl_highlights: [
+    {
+      folder: "sigiriya",
+      photos: [],
+      fallbackSrc: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&w=960&q=80",
+      title: "Sigiriya",
+      subtitle: "The Lion Rock — a 5th-century palace fortress and UNESCO World Heritage icon rising from the central plains.",
+      alt: "Sigiriya and central plains scenery",
+    },
+    {
+      folder: "galle-fort",
+      photos: [],
+      fallbackSrc: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&w=960&q=80",
+      title: "Galle & the fort",
+      subtitle: "Walk Dutch-era ramparts, the lighthouse, and cobbled lanes inside a living UNESCO fort on the south coast.",
+      alt: "Galle coast and fort",
+    },
+    {
+      folder: "elephant-gathering",
+      photos: [],
+      fallbackSrc: "https://images.unsplash.com/photo-1505142468610-359e7d316be0?auto=format&w=960&q=80",
+      title: "The elephant gathering",
+      subtitle: "Minneriya and Kaudulla national parks host huge seasonal herds at the reservoirs — a classic safari moment.",
+      alt: "Elephants in Sri Lanka",
+    },
+    {
+      folder: "kandy",
+      photos: [],
+      fallbackSrc: "https://images.unsplash.com/photo-1605649487212-47bdab064df7?auto=format&w=960&q=80",
+      title: "Kandy & the Sacred Tooth",
+      subtitle: "The hill-country capital, the lake, and Sri Dalada Maligawa — one of Buddhism’s most revered temples.",
+      alt: "Kandy temple architecture",
+    },
+    {
+      folder: "ella",
+      photos: [],
+      fallbackSrc: "https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&w=960&q=80",
+      title: "Ella & Nine Arch Bridge",
+      subtitle: "Cool air, tea valleys, and the famous stone railway bridge — best paired with a scenic train ride.",
+      alt: "Hills near Ella",
+    },
+    {
+      folder: "tea-country",
+      photos: [],
+      fallbackSrc: "https://images.unsplash.com/photo-1528183429752-a97d0bf99b5a?auto=format&w=960&q=80",
+      title: "Tea country",
+      subtitle: "Rolling estates around Nuwara Eliya — factory visits, tastings, and misty mornings in “Little England.”",
+      alt: "Tea plantations",
+    },
+    {
+      folder: "dambulla",
+      photos: [],
+      fallbackSrc: "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&w=960&q=80",
+      title: "Dambulla Cave Temple",
+      subtitle: "Five cave shrines under a massive rock overhang — golden Buddhas and centuries of murals (UNESCO).",
+      alt: "Dambulla cave temple",
+    },
+    {
+      folder: "polonnaruwa",
+      photos: [],
+      fallbackSrc: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&w=960&q=80",
+      title: "Ancient Polonnaruwa",
+      subtitle: "Cycling among ruined palaces, stupas, and the Gal Vihara rock Buddhas — the medieval capital frozen in stone.",
+      alt: "Polonnaruwa ancient city",
+    },
+    {
+      folder: "yala",
+      photos: [],
+      fallbackSrc: "https://images.unsplash.com/photo-1564760055775-d63b17a55c44?auto=format&w=960&q=80",
+      title: "Yala & the south’s wildlife",
+      subtitle: "Jeep safaris through scrub and coast — elephants, birds, and with luck a leopard in Sri Lanka’s best-known park.",
+      alt: "Wildlife safari",
+    },
+    {
+      folder: "south-beaches",
+      photos: [],
+      fallbackSrc: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?auto=format&w=960&q=80",
+      title: "South coast beaches",
+      subtitle: "Mirissa, Tangalle, and beyond — coconut palms, calm bays, and whale-watching boats in season.",
+      alt: "Southern beaches",
+    },
+    {
+      folder: "anuradhapura",
+      photos: [],
+      fallbackSrc: "https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?auto=format&w=960&q=80",
+      title: "Anuradhapura",
+      subtitle: "Sacred bodhi tree, enormous dagobas, and the cradle of Sinhalese civilization — a deeply spiritual UNESCO site.",
+      alt: "Anuradhapura sacred sites",
+    },
+    {
+      folder: "adams-peak",
+      photos: [],
+      fallbackSrc: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&w=960&q=80",
+      title: "Adam’s Peak (Sri Pada)",
+      subtitle: "A night or dawn climb for pilgrims and hikers — sunrise above the clouds and a footprint-shaped summit shrine.",
+      alt: "Adam’s Peak",
+    },
+    {
+      folder: "horton-plains",
+      photos: [],
+      fallbackSrc: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&w=960&q=80",
+      title: "Horton Plains & World’s End",
+      subtitle: "Highland grasslands, mist, and a sheer cliff drop — a different side of the island just hours from Nuwara Eliya.",
+      alt: "Horton Plains",
+    },
+    {
+      folder: "colombo",
+      photos: [],
+      fallbackSrc: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&w=960&q=80",
+      title: "Colombo gateway",
+      subtitle: "Markets, colonial architecture, and the waterfront — an easy start or finish before the airport.",
+      alt: "Colombo",
+    },
+    {
+      folder: "train-kandy-ella",
+      photos: [],
+      fallbackSrc: "https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?auto=format&w=960&q=80",
+      title: "Scenic train: Kandy to Ella",
+      subtitle: "Often named among the world’s most beautiful rail journeys — open windows, tea hills, and viaducts.",
+      alt: "Scenic train in hill country",
+    },
   ],
 
 };

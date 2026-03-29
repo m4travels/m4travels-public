@@ -3,6 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-9CMGEL4DHZ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-9CMGEL4DHZ');
+  </script>
   <title>M4Travels Sri Lanka | Private Tours & Airport Transfers</title>
   <meta name="description" content="Discover the beauty of Sri Lanka with M4Travels Sri Lanka — reliable airport transfers, private tours, and customized travel experiences across the island." />
   <meta property="og:title" content="M4Travels Sri Lanka" />
@@ -31,7 +40,7 @@
         <li><a href="#about">About</a></li>
         <li><a href="#services">Services</a></li>
         <li><a href="#why-us">Why Us</a></li>
-        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#highlights">Highlights</a></li>
         <li><a href="#packages">Packages</a></li>
         <li><a href="#contact" class="nav-cta">Book Now</a></li>
       </ul>
@@ -45,7 +54,13 @@
       <div class="hero-main">
         <div class="hero-left">
           <h2 class="hero-title">Welcome to <br> <em>M4Travels Sri Lanka</em></h2>
-          <a href="#contact" class="btn btn-primary" id="heroCta"></a>
+          <div class="hero-cta-row" role="group" aria-label="Book or contact">
+            <a href="#" class="btn btn-primary hero-call-btn" id="heroCallBtn">
+              <span class="hero-call-label hero-call-label--mobile">Call</span>
+              <span class="hero-call-label hero-call-label--desktop" id="heroCallNumber"></span>
+            </a>
+            <a href="#contact" class="btn btn-outline hero-message-btn" id="heroMessageBtn">Message us</a>
+          </div>
         </div>
         <ul class="hero-badges" id="heroBadges" aria-label="Highlights"></ul>
       </div>
@@ -95,7 +110,7 @@
     <div class="container">
       <p class="section-label center">Why Tourists Choose Us</p>
       <h2 class="center">Your Safety, Comfort &amp; <em>Satisfaction</em></h2>
-      <div class="highlights-grid" id="whyUsGrid"></div>
+      <div class="why-us-grid" id="whyUsGrid"></div>
       <p class="why-us-priority">Your safety, comfort, and satisfaction are our top priorities.</p>
     </div>
   </section>
@@ -105,13 +120,13 @@
     <div class="dest-track" id="destTrack"></div>
   </section>
 
-  <!-- GALLERY -->
-  <section id="gallery" class="section gallery">
+  <!-- SRI LANKA HIGHLIGHTS (destinations & experiences) -->
+  <section id="highlights" class="section sl-highlights">
     <div class="container">
-      <p class="section-label center">Real Experiences</p>
-      <h2 class="center">Photo <em>Gallery</em></h2>
-      <p class="gallery-intro">Photos of our vehicle, tourists traveling, Sri Lanka attractions — beaches, mountains, wildlife, and airport pickup. Photos build trust for tourists.</p>
-      <div class="gallery-grid" id="galleryGrid"></div>
+      <p class="section-label center">Discover the Island</p>
+      <h2 class="center">Sri Lanka <em>Highlights</em></h2>
+      <p class="highlights-intro">A taste of what awaits — UNESCO sites, wildlife, beaches, and hill-country scenery. We’ll help you build a route that fits your dates and pace.</p>
+      <div class="highlights-grid" id="highlightsGrid"></div>
     </div>
   </section>
 
@@ -183,8 +198,8 @@
             </div>
             <div class="form-row">
               <div class="form-group">
-                <label>Arrival Date</label>
-                <input type="date" name="date" required />
+                <label>Travelling month</label>
+                <input type="month" name="travelMonth" required />
               </div>
               <div class="form-group">
                 <label>Number of Travelers</label>
